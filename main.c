@@ -1,34 +1,28 @@
-#include "holberton.h"
+#include "minishell.h"
+
 
 /**
- * main - principal function
- * @argc: is an int
- * @argv: is a char
- * @environ: global variable
- * Return: 0
+ * main - entry point
+ *
+ * @argc: number of arguments given to the program
+ * @argv: arguments list
+ *
+ * Return: returns the value of the last executed command
  */
-
-int main(int argc, char **argv, char **environ)
+int main(int argc, char **argv)
 {
-	char *line = NULL;
-	char *delim = "\t \a\n";
-	char *command;
-	char **tokens;
-	(void)argc;
+	char *cmdline = NULL;
+	char **cmdargs;
+	char prompt[] = "(hsh) ";
+	Bool status = true;
 
-	tokens = find_path(environ);
+	name = (argv[0] != NULL) ? argv[0] : NULL;
 
-	signal(SIGINT, SIG_IGN);
-	while (1)
+	while (status)
 	{
-		line = read_line();
-		argv = splits(line, delim);
-		command = args_path(argv, tokens);
-		if (command == NULL)
-			execute(argv);
-		free(line);
-		free(argv);
-		free(command);
+		write(1, prompt, strlen(prompt));
+		cmdline = get_user_input();
 	}
+
 	return (0);
 }
